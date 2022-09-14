@@ -1,26 +1,36 @@
 let userForm = document.getElementById("user_form"); 
  let myentries=[]; 
- if(localStorage.getItem("myentries")===null) 
- { 
-     myentries =[]; 
-     console.log("if"); 
- } 
- else{ 
-    myentries = JSON.parse(localStorage.getItem("myentries"));  
-    console.log("else"); 
- } 
- //console.log(myentries); 
-  
+     if(localStorage.getItem("myentries")===null) 
+    { 
+         myentries =[];  
+       } 
+       else
+     { 
+      myentries = JSON.parse(localStorage.getItem("myentries")); 
+       } 
+
+
+
+
  let errors=[] 
- const retieveEntries = ()=>{ 
-     let entries = localStorage.getItem('myentries') 
-     if(entries){ 
+ const retieveEntries = ()=>
+{ 
+          let entries = localStorage.getItem('myentries') 
+     if(entries)
+     { 
          entries=JSON.parse(entries) 
-     }else{ 
+     }
+     else
+      { 
          entries=[] 
      } 
      return entries 
  } 
+
+
+
+
+
  const displayEntries = ()=>{ 
  let entries=retieveEntries() 
  const tbleEntries = entries.map((entry)=>{ 
@@ -31,7 +41,6 @@ let userForm = document.getElementById("user_form");
  const acceptTermsCell = `<td class='border px-4 py-2'>${entry.acceptTerms}</td>` 
  const row = `<tr>${nameCell} ${emailCell} ${passwordCell} ${dobCell} ${acceptTermsCell}</tr>` 
  return row 
-  
  }).join('\n') 
  const table =` <table class='table-auto w-full'> 
      <tr> 
@@ -45,7 +54,6 @@ let userForm = document.getElementById("user_form");
  let details = document.getElementById('user-entries') 
  details.innerHTML=table 
  } 
-  
  const saveUserForm = (event)=>{ 
  event.preventDefault(); 
  const FullName = document.getElementById('name').value 
@@ -58,27 +66,27 @@ let userForm = document.getElementById("user_form");
  let year=birthYear[0] 
  var age = currentYear-year 
  console.log({age,currentYear,birthYear}) 
- if(age < 18 || age > 55){ 
-     document.getElementById('dob').style='border:1px solid red' 
-   return  alert("Age must be between 18 and 55") 
+           if(age < 50 || age >20)
+           { 
+            document.getElementById('dob').style='border:1px solid red' 
+           return  alert("Age must be between 18 and 55") 
+          }  
+           else
+            { 
+          document.getElementById('dob').style='border:none' 
   
- }else{ 
-     document.getElementById('dob').style='border:none' 
-  
-     const entry ={ 
-         FullName, 
-         email, 
-         password, 
-         dob, 
-         acceptTerms 
+       const entry ={ 
+          FullName, 
+          email, 
+          password, 
+          dob, 
+          acceptTerms 
       } 
       myentries.push(entry); 
       localStorage.setItem("myentries",JSON.stringify(myentries)) 
      displayEntries() 
-     userForm.reset() 
-     
- } 
-   
- } 
- userForm.addEventListener('submit',saveUserForm) 
- displayEntries()
+     userForm.reset()     
+        }  
+     } 
+  userForm.addEventListener('submit',saveUserForm) 
+  displayEntries()
